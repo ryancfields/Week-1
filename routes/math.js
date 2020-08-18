@@ -18,11 +18,12 @@ router.post("/sum", (req, res, next) => {
 
 router.post("/product", (req, res, next) => {
   if (req.body.length == 0) {
-    res.sendStatus(400).send("Product requires at least two values");
+    res.sendStatus(400).send();
+  } else if (req.body.length == 1) {
+    res.json({ product: req.body[0] });
   } else {
     const product = req.body.reduce(
-      (runningProduct, num) => num * runningProduct,
-      0
+      (runningProduct, num) => num * runningProduct
     );
     res.json({ product });
   }
